@@ -1,0 +1,73 @@
+name: Build installers
+
+# Manual: Actions -> "Build installers" -> Run workflow. Builds a Windows
+# installer + a macOS .dmg on native runners and publishes them to a Release.
+# Unsigned (one-time "Run anyway" / right-click Open) until code-signing is added.
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Build standalone .exe
+        run: |
+          npm install -g @yao-pkg/pkg
+          pkg index.js --targets node20-win-x64 --output dist/speakeasy-helper.exe
+      - name: Build installer (Inno Setup)
+        run: |
+          choco install innosetup --no-progress -y
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "installer/windows.iss"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: dist/SpeakeasyHelper-Setup.exe
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Build standalone binaries (arm64 + x64) + ad-hoc sign
+        run: |
+          npm install -g @yao-pkg/pkg
+          pkg index.js --targets node20-macos-arm64 --output dist/speakeasy-helper-arm64
+          pkg index.js --targets node20-macos-x64   --output dist/speakeasy-helper-x64
+          chmod +x dist/speakeasy-helper-arm64 dist/speakeasy-helper-x64
+          # Apple Silicon refuses to run an unsigned arm64 binary — ad-hoc sign both.
+          codesign --force --timestamp=none --sign - dist/speakeasy-helper-arm64
+          codesign --force --timestamp=none --sign - dist/speakeasy-helper-x64
+      - name: Build .dmg
+        run: bash installer/macos-make-dmg.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-installer
+          path: dist/SpeakeasyHelper.dmg
+
+  release:
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: artifacts }
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || format('build-{0}', github.run_number) }}
+          name: Speakeasy Serato Helper
+          body: |
+            Standalone Serato Helper for THE CRATE — no Node, no batch file.
+            Windows: SpeakeasyHelper-Setup.exe · macOS: SpeakeasyHelper.dmg (Intel + Apple Silicon).
+            Unsigned: Windows -> "More info" -> "Run anyway"; macOS -> right-click -> Open the first time.
+          files: |
+            artifacts/windows-installer/SpeakeasyHelper-Setup.exe
+            artifacts/macos-installer/SpeakeasyHelper.dmg
