@@ -17,6 +17,8 @@ DefaultDirName={autopf}\Speakeasy Serato Helper
 DefaultGroupName=Speakeasy Serato Helper
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
+; Resolve Source/OutputDir from the repo root (this .iss lives in installer/).
+SourceDir={#SourcePath}..
 OutputDir=dist
 OutputBaseFilename=SpeakeasyHelper-Setup
 Compression=lzma
