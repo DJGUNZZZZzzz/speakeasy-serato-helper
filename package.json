@@ -1,6 +1,6 @@
 {
   "name": "speakeasy-serato-helper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Watches local Serato history and pushes the current track to THE CRATE (speakeasycoding.com). Read-only, zero runtime dependencies.",
   "bin": "index.js",
