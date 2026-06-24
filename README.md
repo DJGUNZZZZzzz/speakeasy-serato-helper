@@ -18,7 +18,7 @@ Speakeasy Helper):
   click you need — the launcher then clears the "unsigned" warning for the rest of
   the folder itself.
 
-The Terminal window that opens should read **`v0.2.1`** at the top (that's how you
+The Terminal window that opens should read **`v0.2.2`** at the top (that's how you
 confirm you're on the current build). **Leave that window open while you DJ.**
 
 Then: THE CRATE → ⚙ → Now Playing → Speakeasy Helper → **Generate pairing code**,
@@ -34,7 +34,10 @@ and paste it into the helper when it asks (one time — it remembers).
 
 - **Read-only & private:** only reads `…/Music/_Serato_/History`. No writes.
 - Config is saved to `~/.speakeasy-helper/config.json`.
-- **Library on another drive?** Set `"seratoPath"` in that config file.
+- **Library on an external/another drive?** The helper finds it automatically (it
+  scans your drives for the Serato folder). If it can't, it **asks you to paste the
+  folder path** right in the Terminal — no file editing. (External drives mount at
+  `/Volumes/<drive>/_Serato_` on macOS.)
 - **Lag:** Serato logs a track a little after you bring it in — that's Serato's
   behavior, not the helper.
 - Stop any time with **Ctrl+C** (or just close the window).
