@@ -14,9 +14,15 @@ cp dist/speakeasy-helper-x64   "$STAGE/speakeasy-helper-x64"
 cp README.md "$STAGE/README.md"
 
 # Arch-detecting launcher the user double-clicks (opens Terminal, runs the helper).
+# First thing it does: strip the macOS "quarantine" flag from its OWN folder so the
+# helper binaries don't each trip a separate Gatekeeper "damaged / can't be opened"
+# prompt. The user still approves THIS launcher once (right-click -> Open); after that
+# everything in the folder runs clean. We only un-quarantine our own folder.
 cat > "$STAGE/Start Speakeasy Helper.command" <<'EOF'
 #!/bin/bash
-cd "$(dirname "$0")"
+DIR="$(cd "$(dirname "$0")" && pwd)"
+xattr -dr com.apple.quarantine "$DIR" 2>/dev/null || true
+cd "$DIR"
 if [ "$(uname -m)" = "arm64" ]; then BIN=./speakeasy-helper-arm64; else BIN=./speakeasy-helper-x64; fi
 chmod +x "$BIN" 2>/dev/null || true
 "$BIN"
