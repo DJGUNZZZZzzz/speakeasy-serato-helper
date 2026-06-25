@@ -18,8 +18,15 @@ Speakeasy Helper):
   click you need — the launcher then clears the "unsigned" warning for the rest of
   the folder itself.
 
-The Terminal window that opens should read **`v0.2.2`** at the top (that's how you
+The Terminal window that opens should read **`v0.2.3`** at the top (that's how you
 confirm you're on the current build). **Leave that window open while you DJ.**
+
+> **External drive (e.g. `/Volumes/easystore/`)?** macOS blocks apps from reading
+> external drives until you allow it. If the helper says a folder is **BLOCKED**:
+> System Settings → Privacy & Security → **Full Disk Access** → turn on your
+> **Terminal** app → quit & reopen Terminal → run the helper again. Also note
+> Serato usually writes its *play history* to `~/Music/_Serato_/History` even when
+> the music is on an external drive — the helper now scans both automatically.
 
 Then: THE CRATE → ⚙ → Now Playing → Speakeasy Helper → **Generate pairing code**,
 and paste it into the helper when it asks (one time — it remembers).
