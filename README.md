@@ -18,8 +18,13 @@ Speakeasy Helper):
   click you need — the launcher then clears the "unsigned" warning for the rest of
   the folder itself.
 
-The Terminal window that opens should read **`v0.2.4`** at the top (that's how you
+The Terminal window that opens should read **`v0.2.5`** at the top (that's how you
 confirm you're on the current build). **Leave that window open while you DJ.**
+
+> **Streaming (Tidal/SoundCloud) or a modern Serato that writes no `.session`
+> files?** v0.2.5 also reads Serato's live **log** (`…/_Serato_/Logs`) and
+> resolves each track from its cached metadata — so now-playing works even when
+> there's no classic history folder.
 
 > **Not detecting your tracks?** When the helper can't find Serato's history it
 > offers a **2-minute live diagnostic** — say `y`, then play a track and it
