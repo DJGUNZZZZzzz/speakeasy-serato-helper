@@ -18,8 +18,13 @@ Speakeasy Helper):
   click you need — the launcher then clears the "unsigned" warning for the rest of
   the folder itself.
 
-The Terminal window that opens should read **`v0.2.3`** at the top (that's how you
+The Terminal window that opens should read **`v0.2.4`** at the top (that's how you
 confirm you're on the current build). **Leave that window open while you DJ.**
+
+> **Not detecting your tracks?** When the helper can't find Serato's history it
+> offers a **2-minute live diagnostic** — say `y`, then play a track and it
+> prints exactly what Serato writes (and where). You can also run it directly
+> with `node index.js debug` (or set `SPEAKEASY_DEBUG=1`).
 
 > **External drive (e.g. `/Volumes/easystore/`)?** macOS blocks apps from reading
 > external drives until you allow it. If the helper says a folder is **BLOCKED**:

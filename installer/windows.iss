@@ -4,7 +4,7 @@
 ; "More info -> Run anyway" the first time until code-signing is added.
 
 #define MyAppName "Speakeasy Serato Helper"
-#define MyAppVersion "0.2.3"
+#define MyAppVersion "0.2.4"
 #define MyAppPublisher "Speakeasy Coding"
 #define MyAppExeName "speakeasy-helper.exe"
 
