@@ -18,7 +18,7 @@ Speakeasy Helper):
   click you need — the launcher then clears the "unsigned" warning for the rest of
   the folder itself.
 
-The Terminal window that opens should read **`v0.2.5`** at the top (that's how you
+The Terminal window that opens should read **`v0.2.6`** at the top (that's how you
 confirm you're on the current build). **Leave that window open while you DJ.**
 
 > **Streaming (Tidal/SoundCloud) or a modern Serato that writes no `.session`
